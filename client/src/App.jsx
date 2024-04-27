@@ -9,12 +9,28 @@ import SpeechPage from "./components/speechPage"
 
 function App() {
   const [embedUrl, setEmbedUrl] = useState("")
+  const [duration, setDuration] = useState(0)
+  const [transcript, setTranscript] = useState("")
 
   return (
     <>
       <Routes>
-        <Route path="/" element={<HomePage setUrl={setEmbedUrl} />} />
-        <Route path="/app" element={<SpeechPage />} />
+        <Route
+          path="/"
+          element={
+            <HomePage setEmbedUrl={setEmbedUrl} setDuration={setDuration} />
+          }
+        />
+        <Route
+          path="/app"
+          element={
+            <SpeechPage
+              embedUrl={embedUrl}
+              duration={duration}
+              setTranscript={setTranscript}
+            />
+          }
+        />
       </Routes>
     </>
   )

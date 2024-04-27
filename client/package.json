@@ -13,7 +13,10 @@
     "@fontsource/poppins": "^5.0.14",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.23.0"
+    "react-router-dom": "^6.23.0",
+    "react-speech-kit": "^3.0.1",
+    "react-speech-recognition": "^3.10.0",
+    "react-timer-hook": "^3.0.7"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

@@ -3,22 +3,36 @@ import image from "../assets/image1.png"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
-function HomePage() {
+import Stopwatch from "./Stopwatch"
+import TileList from "./TileList"
+
+function HomePage({ setEmbedUrl, setDuration }) {
   const navigate = useNavigate()
 
   const [url, setUrl] = useState("")
+  const [warning, setWarning] = useState(false)
+  const [time, setTime] = useState(0)
+
   const handleSubmit = (e) => {
     e.preventDefault()
 
+    if (url === "") {
+      setWarning(true)
+      return
+    }
+    setEmbedUrl(url)
+    setDuration(time)
     setUrl("")
-    console.log("hello world")
-
     navigate("/app")
   }
 
   const handleChange = (e) => {
-    console.log(e.target.value)
+    if (url !== "") setWarning(false)
+
     setUrl(e.target.value)
+  }
+  const handleTimeChange = (e) => {
+    setTime(e.target.value)
   }
 
   return (
@@ -28,16 +42,34 @@ function HomePage() {
       </div>
       <div className="min-h-40 flex items-center justify-center bg-amber-50">
         <form className="grow p-2" onSubmit={handleSubmit}>
-          <div className="flex items-center p-2 gap-4 grow">
-            <label htmlFor="" className="text-xl italic">
-              Enter your url here :
-            </label>
-            <input
-              type="text"
-              className="bg-gray-100 p-2 rounded-md border-2 grow border-gray-300 "
-              value={url}
-              onChange={handleChange}
-            />
+          <div className="flex items-end p-2 gap-4 grow">
+            <div className="flex flex-col grow">
+              <label htmlFor="" className="text-xl italic">
+                Enter your url here :
+              </label>
+              <input
+                type="text"
+                className="bg-gray-100 p-2 rounded-md border-2 grow border-gray-300 mt-2 "
+                value={url}
+                onChange={handleChange}
+              />
+              {warning && (
+                <h1 className="text-red-400 text-md font-bold pt-2">
+                  enter a valid embed url
+                </h1>
+              )}
+            </div>
+            <div className="flex flex-col grow">
+              <label htmlFor="" className="text-xl italic">
+                Enter time in mins
+              </label>
+              <input
+                type="text"
+                className="bg-gray-100 p-2 rounded-md border-2 grow border-gray-300 mt-2"
+                value={time}
+                onChange={handleTimeChange}
+              />
+            </div>
             <button
               className="bg-green-700 p-2 text-white rounded-md"
               type="Submit"
